@@ -1,3 +1,26 @@
 #cameraPreview {
   transform: scaleX(-1);
+  max-width: 600px;     /* batas maksimal lebar */
+  width: 100%;          /* otomatis menyesuaikan */
+  aspect-ratio: 4/3;    /* jaga proporsi */
+  border-radius: 10px;
+  object-fit: cover;
+  background: black;
+}
+
+#photoCanvas {
+  max-width: 600px;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 10px;
+  object-fit: cover;
+  background: black;
+  display: block;
+  margin-top: 10px;
+}
+
+#countdown {
+  font-size: 70px;
+  color: white;
+  text-shadow: 3px 3px 10px black;
 }

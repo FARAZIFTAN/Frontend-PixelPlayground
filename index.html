@@ -13,12 +13,19 @@
   <!-- Video untuk preview kamera -->
   <div class="relative w-full max-w-md aspect-video bg-black rounded-lg overflow-hidden shadow">
     <video id="cameraPreview" autoplay playsinline class="w-full h-full object-cover"></video>
+     <div id="countdown" class="absolute inset-0 flex items-center justify-center text-white text-6xl font-bold hidden"></div>
   </div>
+
+  <!-- Canvas hasil foto -->
+  <canvas id="photoCanvas" class="mt-4 border rounded shadow hidden"></canvas>
 
   <!-- Tombol aksi -->
   <div class="mt-4">
     <button id="startCamera" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600">
       Nyalakan Kamera
+    </button>
+    <button id="capturePhoto" class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600" disabled>
+      Ambil Foto
     </button>
   </div>
 </body>
