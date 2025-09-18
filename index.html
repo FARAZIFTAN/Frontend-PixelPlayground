@@ -7,26 +7,27 @@
   <link href="css/style.css" rel="stylesheet" />
   <script defer src="js/camera.js"></script>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-  <h1 class="text-2xl font-bold mb-4">📸 Web Photobooth</h1>
+<body class="camera-page">
+  <div class="container">
+    
+    <!-- Judul -->
+    <h1 class="title">📸 Web Photobooth</h1>
 
-  <!-- Video untuk preview kamera -->
-  <div class="relative w-full max-w-md aspect-video bg-black rounded-lg overflow-hidden shadow">
-    <video id="cameraPreview" autoplay playsinline class="w-full h-full object-cover"></video>
-     <div id="countdown" class="absolute inset-0 flex items-center justify-center text-white text-6xl font-bold hidden"></div>
-  </div>
+    <!-- Video untuk preview kamera -->
+    <div class="camera-box">
+      <video id="cameraPreview" autoplay playsinline></video>
+      <div id="countdown" class="countdown hidden"></div>
+    </div>
 
-  <!-- Canvas hasil foto -->
-  <canvas id="photoCanvas" class="mt-4 border rounded shadow hidden"></canvas>
+    <!-- Tombol aksi -->
+    <div class="btn-group">
+      <button id="startCamera">Nyalakan Kamera</button>
+      <button id="capturePhoto" disabled>Ambil Foto</button>
+    </div>
 
-  <!-- Tombol aksi -->
-  <div class="mt-4">
-    <button id="startCamera" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600">
-      Nyalakan Kamera
-    </button>
-    <button id="capturePhoto" class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600" disabled>
-      Ambil Foto
-    </button>
+    <!-- Canvas hasil foto -->
+    <canvas id="photoCanvas" class="hidden"></canvas>
+    
   </div>
 </body>
 </html>

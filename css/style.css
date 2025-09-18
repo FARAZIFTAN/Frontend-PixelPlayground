@@ -1,123 +1,96 @@
-#cameraPreview {
-  transform: scaleX(-1);
-  max-width: 600px;     /* batas maksimal lebar */
-  width: 100%;          /* otomatis menyesuaikan */
-  aspect-ratio: 4/3;    /* jaga proporsi */
+/* Body untuk halaman kamera */
+body.camera-page {
+  background: linear-gradient(135deg, pink, #3b82f6); /* gradasi pink-biru */
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* biar judul tetap di atas */
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Container utama */
+.container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Judul */
+.title {
+  color: blue; /* sesuai request kamu */
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Kotak kamera */
+.camera-box {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
   border-radius: 10px;
-  object-fit: cover;
+  overflow: hidden;
   background: black;
 }
 
-#photoCanvas {
-  max-width: 600px;
+#cameraPreview {
+  transform: scaleX(-1);
   width: 100%;
   aspect-ratio: 4/3;
-  border-radius: 10px;
   object-fit: cover;
-  background: black;
-  display: block;
-  margin-top: 10px;
+  border-radius: 10px;
 }
 
 #countdown {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 70px;
   color: white;
   text-shadow: 3px 3px 10px black;
 }
 
-/* Global body styling */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, pink, #3b82f6); /* gradasi pink-biru */
+/* Tombol */
+.btn-group {
+  margin-top: 15px;
 }
 
-/* Box container */
-.auth-box {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  width: 100%;
-  max-width: 400px;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Title */
-.auth-box h1 {
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: #1f2937; /* abu-abu gelap */
-}
-
-/* Input */
-.auth-box input {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.25rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border 0.2s ease;
-}
-
-.auth-box input:focus {
-  border-color: #3b82f6; /* biru */
-  box-shadow: 0 0 4px rgba(59, 130, 246, 0.5);
-}
-
-/* Label */
-.auth-box label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #374151;
-}
-
-/* Button */
-.auth-box button {
-  width: 100%;
-  padding: 0.8rem;
-  margin-top: 0.5rem;
-  background: #3b82f6;
-  color: white;
+.btn-group button {
+  padding: 10px 20px;
+  margin: 5px;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s ease;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
 }
 
-.auth-box button:hover {
-  background: #2563eb; /* biru lebih gelap */
+#startCamera {
+  background-color: #22c55e; /* hijau */
 }
 
-/* Footer link */
-.auth-box p {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #374151;
+#startCamera:hover {
+  background-color: #16a34a;
 }
 
-.auth-box a {
-  color: #3b82f6;
-  text-decoration: none;
-  font-weight: 600;
+#capturePhoto {
+  background-color: #3b82f6; /* biru */
 }
 
-.auth-box a:hover {
-  text-decoration: underline;
+#capturePhoto:hover {
+  background-color: #2563eb;
 }
 
-/* Animasi */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Canvas hasil foto */
+#photoCanvas {
+  display: block;
+  max-width: 600px;
+  width: 100%;
+  aspect-ratio: 4/3;
+  margin: 15px auto 0;
+  border-radius: 10px;
+  background: black;
 }
