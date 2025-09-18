@@ -4,6 +4,7 @@ const captureBtn = document.getElementById("capturePhoto");
 const video = document.getElementById("cameraPreview");
 const canvas = document.getElementById("photoCanvas");
 const countdownEl = document.getElementById("countdown");
+const layoutSelect = document.getElementById("layout");
 
 let lastStream = null;
 
@@ -42,7 +43,7 @@ async function startCamera() {
   }
 }
 
-// Fungsi ambil foto dengan countdown
+// Fungsi ambil foto dengan countdown & layout
 function capturePhoto() {
   let counter = 3;
   countdownEl.textContent = counter;
@@ -55,8 +56,8 @@ function capturePhoto() {
     } else {
       clearInterval(interval);
 
-      // Render foto ke canvas (mirror + sesuai proporsi)
       const context = canvas.getContext("2d");
+      const layout = layoutSelect ? layoutSelect.value : "single";
 
       // Samakan ukuran canvas dengan video preview
       canvas.width = video.videoWidth;
@@ -64,9 +65,35 @@ function capturePhoto() {
 
       context.save();
       context.scale(-1, 1); // mirror horizontal
-      context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
-      context.restore();
 
+      if (layout === "single") {
+        // 1 Foto penuh
+        context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+
+      } else {
+        // Layout kelipatan 2 (2, 4, 6, 8)
+        const numPhotos = parseInt(layout);
+        const cols = 2; // default 2 kolom
+        const rows = Math.ceil(numPhotos / cols);
+
+        const cellWidth = canvas.width / cols;
+        const cellHeight = canvas.height / rows;
+
+        let photoIndex = 0;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            if (photoIndex >= numPhotos) break;
+
+            const x = -((c + 1) * cellWidth);
+            const y = r * cellHeight;
+
+            context.drawImage(video, x, y, cellWidth, cellHeight);
+            photoIndex++;
+          }
+        }
+      }
+
+      context.restore();
       canvas.classList.remove("hidden");
 
       // Hapus angka countdown setelah capture
@@ -77,8 +104,6 @@ function capturePhoto() {
     }
   }, 1000);
 }
-
-
 
 // Event listener tombol
 startBtn.addEventListener("click", startCamera);
