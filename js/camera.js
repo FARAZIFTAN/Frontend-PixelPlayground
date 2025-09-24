@@ -1,4 +1,4 @@
-// Ambil elemen
+// Ambil elemen video & tombol 
 const startBtn = document.getElementById("startCamera");
 const captureBtn = document.getElementById("capturePhoto");
 const video = document.getElementById("cameraPreview");
@@ -8,9 +8,9 @@ const layoutSelect = document.getElementById("layout");
 const gallery = document.getElementById("gallery");
 
 let lastStream = null;
-let capturedPhotos = [];
+let capturedPhotos = []; // simpan semua foto sementara
 
-// Hentikan stream lama
+// Fungsi stop stream lama
 function stopLastStream() {
   if (lastStream) {
     lastStream.getTracks().forEach(track => track.stop());
@@ -19,12 +19,17 @@ function stopLastStream() {
   }
 }
 
-// Nyalakan kamera
+// Fungsi untuk nyalakan kamera
 async function startCamera() {
   stopLastStream();
   try {
     const constraints = {
-      video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+      video: {
+        facingMode: "user",
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+        frameRate: { ideal: 30, max: 60 }
+      },
       audio: false
     };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -40,7 +45,7 @@ async function startCamera() {
   }
 }
 
-// Ambil 1 foto
+// Ambil 1 foto dari kamera (mirror)
 function captureSinglePhoto() {
   const tempCanvas = document.createElement("canvas");
   tempCanvas.width = video.videoWidth;
@@ -57,10 +62,10 @@ function captureSinglePhoto() {
 
 // Fungsi ambil foto multiple sesuai layout
 function capturePhoto() {
-  const layout = layoutSelect ? layoutSelect.value : "single";
+  const layout = layoutSelect ? layoutSelect.value : "1";
   const numPhotos = layout === "single" ? 1 : parseInt(layout);
 
-  capturedPhotos = [];
+  capturedPhotos = []; // reset array
   let currentShot = 0;
 
   function takeNextPhoto() {
@@ -89,7 +94,7 @@ function capturePhoto() {
       }, 1000);
 
     } else {
-      // semua foto terkumpul → gabungkan + frame
+      // semua foto terkumpul → gabungkan
       renderLayout(layout);
     }
   }
@@ -97,53 +102,46 @@ function capturePhoto() {
   takeNextPhoto();
 }
 
-// Gabungkan foto ke layout + tambahkan frame
+// Gabungkan foto ke layout + frame
 function renderLayout(layout) {
   const context = canvas.getContext("2d");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
 
-  const numPhotos = layout === "single" ? 1 : parseInt(layout);
-  const cols = 2;
-  const rows = Math.ceil(numPhotos / cols);
-
-  const cellWidth = canvas.width / cols;
-  const cellHeight = canvas.height / rows;
+  // Canvas disamakan dengan ukuran frame photostrip
+  canvas.width = 591;
+  canvas.height = 1772;
 
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  let photoIndex = 0;
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      if (photoIndex >= capturedPhotos.length) break;
-
-      context.drawImage(
-        capturedPhotos[photoIndex],
-        c * cellWidth,
-        r * cellHeight,
-        cellWidth,
-        cellHeight
-      );
-      photoIndex++;
-    }
+  const slots = layoutConfig[layout]; // ambil config posisi dari layoutConfig.js
+  if (!slots) {
+    console.error("Layout tidak ditemukan:", layout);
+    return;
   }
 
+  // gambar semua foto ke slot masing-masing
+  capturedPhotos.forEach((photoCanvas, i) => {
+    if (i < slots.length) {
+      const slot = slots[i];
+      context.drawImage(photoCanvas, slot.x, slot.y, slot.w, slot.h);
+    }
+  });
+
   // Tambahkan frame PNG sesuai layout
+  const frameName = `Layout ${layout} foto.png`;
   const frameImg = new Image();
-  frameImg.src = `assets/frames/frame-${layout === "single" ? "1" : layout}.png`;
+  frameImg.src = `assets/frames/${frameName}`;
   frameImg.onload = () => {
     context.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
 
-    // tampilkan canvas
     canvas.classList.remove("hidden");
 
-    // simpan ke galeri
+    // Simpan hasil ke galeri juga
     const img = new Image();
     img.src = canvas.toDataURL("image/png");
     gallery.appendChild(img);
   };
 }
 
-// Event listener
+// Event listener tombol
 startBtn.addEventListener("click", startCamera);
 captureBtn.addEventListener("click", capturePhoto);
