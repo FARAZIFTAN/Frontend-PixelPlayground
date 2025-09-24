@@ -175,3 +175,212 @@ body.auth-page {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* ========== GLOBAL ========== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* ========== KAMERA PAGE ========== */
+body.camera-page {
+  background: linear-gradient(135deg, pink, #3b82f6); /* gradasi */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* biar judul tetap di atas */
+}
+
+.camera-page .container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.camera-page .title {
+  color: blue; /* sesuai request */
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Pilihan layout */
+.layout-select {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+.layout-select label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+.layout-select select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  font-size: 1rem;
+}
+
+.camera-box {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  background: black;
+}
+
+#cameraPreview {
+  transform: scaleX(-1);
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+#countdown {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  color: white;
+  text-shadow: 3px 3px 10px black;
+}
+
+.btn-group {
+  margin-top: 15px;
+}
+
+.btn-group button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+
+#startCamera {
+  background-color: #22c55e; /* hijau */
+}
+#startCamera:hover {
+  background-color: #16a34a;
+}
+
+#capturePhoto {
+  background-color: #3b82f6; /* biru */
+}
+#capturePhoto:hover {
+  background-color: #2563eb;
+}
+
+#photoCanvas {
+  display: block;
+  max-width: 600px;
+  width: 100%;
+  aspect-ratio: 4/3;
+  margin: 15px auto 0;
+  border-radius: 10px;
+  background: black;
+}
+
+/* Galeri hasil */
+.gallery {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.gallery img {
+  width: 150px;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  object-fit: cover;
+}
+
+/* ========== AUTH PAGE (Login & Register) ========== */
+body.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, pink, #3b82f6); /* gradasi */
+}
+
+.auth-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.auth-box h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.auth-box label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s ease;
+}
+.auth-box input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.5);
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.auth-box button:hover {
+  background: #2563eb;
+}
+
+.auth-box p {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #374151;
+}
+.auth-box a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+.auth-box a:hover {
+  text-decoration: underline;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
